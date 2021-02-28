@@ -40,78 +40,73 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Center(child: Logo()),
               Form(
-                child: ListView(
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          TextFormFieldPersonalized(
-                              controller: usernameController,
-                              theLabelText: 'Nombre de Usuario',
-                              bottomPadding: 8.0,
-                              isTextObscure: false),
-                          TextFormFieldPersonalized(
-                              controller: passwordControler,
-                              theLabelText: 'Contraseña',
-                              bottomPadding: 0,
-                              isTextObscure: true),
-                          FlatButton(
-                              padding: EdgeInsets.all(0),
-                              onPressed: null,
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      TextFormFieldPersonalized(
+                          controller: usernameController,
+                          theLabelText: 'Nombre de Usuario',
+                          bottomPadding: 8.0,
+                          isTextObscure: false),
+                      TextFormFieldPersonalized(
+                          controller: passwordControler,
+                          theLabelText: 'Contraseña',
+                          bottomPadding: 0,
+                          isTextObscure: true),
+                      FlatButton(
+                          padding: EdgeInsets.all(0),
+                          onPressed: null,
+                          child: Text(
+                            'Olvidé la contraseña',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                color: Color.fromRGBO(127, 33, 33, 1)),
+                          )),
+                      Padding(
+                        padding: EdgeInsets.only(top: 3, bottom: 3),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: <Widget>[
+                            RaisedButton(
+                              elevation: 3.0,
+                              //color: Color.fromRGBO(242, 36, 36, 1),
                               child: Text(
-                                'Olvidé la contraseña',
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    color: Color.fromRGBO(127, 33, 33, 1)),
-                              )),
-                          Padding(
-                            padding: EdgeInsets.only(top: 3, bottom: 3),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: <Widget>[
-                                RaisedButton(
-                                  elevation: 3.0,
-                                  //color: Color.fromRGBO(242, 36, 36, 1),
-                                  child: Text(
-                                    'Iniciar Sesión',
-                                    style: TextStyle(color: Colors.white),
-                                    //textScaleFactor: 1.5,
-                                  ),
-                                  onPressed: () {
-                                    //When the Iniciar Sesión button is pressed...
-                                    _validateThenNavigate();
-                                  },
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                ),
-                                InkWell(
-                                  onTap: navigateToAddTrainer,
-                                  child: Container(
-                                    padding:
-                                        EdgeInsets.only(bottom: 7, left: 30),
-                                    child: Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Text(
-                                        'Registrarse',
-                                        style: TextStyle(
-                                            color:
-                                                Color.fromRGBO(127, 33, 33, 1),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                'Iniciar Sesión',
+                                style: TextStyle(color: Colors.white),
+                                //textScaleFactor: 1.5,
+                              ),
+                              onPressed: () {
+                                //When the Iniciar Sesión button is pressed...
+                                _validateThenNavigate();
+                              },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
                             ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                            InkWell(
+                              onTap: navigateToAddTrainer,
+                              child: Container(
+                                padding:
+                                    EdgeInsets.only(bottom: 7, left: 30),
+                                child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text(
+                                    'Registrarse',
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromRGBO(127, 33, 33, 1),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
