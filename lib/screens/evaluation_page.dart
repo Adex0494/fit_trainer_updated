@@ -1,7 +1,7 @@
 import 'package:fit_trainer_updated/models/subscriber.dart';
 import 'package:fit_trainer_updated/utils/database_helper.dart';
 import 'package:flutter/material.dart';
-import 'subscriber_page.dart';
+import '../widgets/faceIcon.dart';
 
 class Evaluation extends StatefulWidget {
   final Subscriber subscriber;

@@ -5,13 +5,13 @@ import 'package:fit_trainer_updated/screens/subscriber_page.dart';
 import 'package:flutter/material.dart';
 import 'add_subscriber_page.dart';
 import 'package:fit_trainer_updated/utils/database_helper.dart';
+import '../widgets/faceIcon.dart';
 
 class TrainerPage extends StatefulWidget {
   final int trainerId;
   TrainerPage(this.trainerId);
   @override
   State<StatefulWidget> createState() {
-    debugPrint('creating trainerpage state');
     return TrainerPageState(this.trainerId);
     // }
   }
@@ -33,125 +33,201 @@ class TrainerPageState extends State<TrainerPage> {
 
   @override
   Widget build(BuildContext context) {
+    AppBar appBar = AppBar(
+      title: Text('Página principal'),
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          //When the user presses the back button in AppBAr...
+          moveToLastScreen();
+        },
+      ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.settings),
+          onPressed: () {
+            navigateToSettings();
+          },
+        )
+      ],
+    );
     return WillPopScope(
         onWillPop: () {
           moveToLastScreen();
         },
         child: Scaffold(
-            appBar: AppBar(
-              title: Text('Página principal'),
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  //When the user presses the back button in AppBAr...
-                  moveToLastScreen();
-                },
-              ),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.settings),
-                  onPressed: (){
-                    navigateToSettings();
-                  },
-                )
-              ],
-            ),
-            backgroundColor: Colors.white,
-            body: scaffoldBody(),
-            floatingActionButton: FloatingActionButton(
-              
-              onPressed: () {
-                navigateToAddSubscriber(true);
-              },
-              tooltip: 'Añadir nuevo Suscriptor',
-              child: Icon(Icons.add),
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-            ));
+          appBar: appBar,
+          body: scaffoldBody(appBar.preferredSize.height),
+        ));
   }
 
-  Widget scaffoldBody() {
-    TextStyle titleStyle = Theme.of(context).textTheme.title;
-    TextStyle subtitleStyle = Theme.of(context).textTheme.subtitle;
-    return Column(children: <Widget>[
-      Expanded(
-          child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(5.0),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                    padding: EdgeInsets.all(3.0),
-                    child: Text(
-                      trainerName(),
-                      style: titleStyle,
-                    )),
-                Padding(
-                    padding: EdgeInsets.all(3.0),
-                    // child: Container(
-                    //   height: 150.0,
-                    //   width: 150.0,
-                    // ),
-                    child: FaceIcon()),
-                Padding(
-                    padding: EdgeInsets.all(3.0),
-                    child: Text(
-                      'Cantidad de suscriptores: ' + subscriberQuantity(),
-                      style: subtitleStyle,
-                    ))
-              ],
+  Widget subscriberListView() {
+    TextStyle subtitleStyle = Theme.of(context).textTheme.subtitle2;
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: listCount,
+        itemBuilder: (BuildContext context, int postition) {
+          return Card(
+            color: Theme.of(context).primaryColorLight,
+            elevation: 2.0,
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage('images/faceIcon.png'),
+                //radius: 15,
+                //child: Icon(Icons.person),
+                //backgroundImage:ImageProvider('images/faceIcon.png'),
+                //child: FaceIcon(),
+              ),
+              title: Text(
+                subscriberList[postition].name,
+                style: subtitleStyle,
+              ),
+              //subtitle: Text(''),
+              trailing:
+                  // GestureDetector(
+                  //   child: Icon(Icons.delete, color: Colors.grey),
+                  //   onTap: () {
+                  //     //When delete button is tapped...
+                  //   },
+                  // ),
+                  trailingButtons(subscriberList[postition]),
+              onTap: () {
+                //When suscriber is tapped...
+                navigateToSubscriberPage(subscriberList[postition]);
+              },
             ),
-          )
-        ],
-      )),
-      Expanded(
+          );
+        });
+  }
+
+  Widget scaffoldBody(double appBarHeight) {
+    double availableHeight = MediaQuery.of(context).size.height -
+        appBarHeight -
+        MediaQuery.of(context).padding.top;
+    TextStyle titleStyle = Theme.of(context).textTheme.headline6;
+    TextStyle subtitleStyle = Theme.of(context).textTheme.subtitle2;
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Container(
+        //alignment: Alignment.center,
         child: Column(
-          children: <Widget>[
-            Text('Suscriptores', style: titleStyle),
-            Expanded(
-              child: ListView.builder(
-                  //shrinkWrap: true,
-                  itemCount: listCount,
-                  itemBuilder: (BuildContext context, int postition) {
-                    return Card(
-                      color: Theme.of(context).primaryColorLight,
-                      elevation: 2.0,
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          //child: Icon(Icons.person),
-                          //backgroundImage:ImageProvider('images/faceIcon.png'),
-                          child: FaceIcon(),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                  height: (availableHeight - 40) * 0.3,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(child: FaceIcon()),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.all(3.0),
+                                child: Text(
+                                  trainerName(),
+                                  style: titleStyle,
+                                  textAlign: TextAlign.center,
+                                )),
+                            Padding(
+                                padding: EdgeInsets.all(3.0),
+                                child: Text(
+                                  'Cantidad de suscriptores: ' +
+                                      subscriberQuantity(),
+                                  style: subtitleStyle,
+                                  textAlign: TextAlign.center,
+                                )),
+                          ],
                         ),
-                        title: Text(
-                          subscriberList[postition].name,
-                          style: subtitleStyle,
-                        ),
-                        //subtitle: Text(''),
-                        trailing:
-                            // GestureDetector(
-                            //   child: Icon(Icons.delete, color: Colors.grey),
-                            //   onTap: () {
-                            //     //When delete button is tapped...
-                            //   },
-                            // ),
-                            trailingButtons(subscriberList[postition]),
-                        onTap: () {
-                          //When suscriber is tapped...
-                          navigateToSubscriberPage(subscriberList[postition]);
-                        },
                       ),
-                    );
-                  }),
-            )
-          ],
-        ),
-      )
-    ]);
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  color: Color.fromRGBO(217, 98, 98, 0.1),
+                ),
+                height: (availableHeight - 40) * 0.7,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Expanded(
+                            //height: (availableHeight - 40) * 0.65,
+                            //width: MediaQuery.of(context).size.width -30,
+                            child: subscriberListView(),
+                          ),
+                          RaisedButton(
+                            onPressed: () {},
+                            child: Center(
+                              child: Container(
+                                child: Text(
+                                  'Añadir suscriptor',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            elevation: 3.0,
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Suscriptor',
+                              style: titleStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                            FaceIcon(),
+                            Text(
+                              'SuscriptorSuscriptorSuscriptorSuscriptorSuscriptorSuscriptorSuscriptorSuscriptor',
+                              style: subtitleStyle,
+                              textAlign: TextAlign.center,
+                            ),
+                            RaisedButton(
+                              onPressed: () {},
+                              child: Center(
+                                child: Container(
+                                  child: Text(
+                                    'ver',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              elevation: 3.0,
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ]),
+      ),
+    );
   }
 
   void moveToLastScreen() {
-    Navigator.pop(context,true);
+    Navigator.pop(context, true);
   }
 
   void navigateToAddSubscriber(bool addSubscriber,
@@ -161,7 +237,7 @@ class TrainerPageState extends State<TrainerPage> {
       String appBarText;
       if (addSubscriber) {
         appBarText = 'Añadir nuevo Suscriptor';
-        return AddSubscriberPage(addSubscriber, appBarText,trainerId);
+        return AddSubscriberPage(addSubscriber, appBarText, trainerId);
       } else {
         appBarText = 'Editar Suscriptor';
         return AddSubscriberPage(
@@ -177,8 +253,8 @@ class TrainerPageState extends State<TrainerPage> {
     }
   }
 
-  void navigateToSettings(){
-     Navigator.push(context, MaterialPageRoute(builder: (context) {
+  void navigateToSettings() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
       return SettingsPage();
     }));
   }
@@ -322,21 +398,6 @@ class TrainerPageState extends State<TrainerPage> {
           ],
         );
       },
-    );
-  }
-}
-
-class FaceIcon extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    AssetImage assetImage = AssetImage('images/faceIcon.png');
-    Image image = Image(
-      image: assetImage,
-      width: 150.0,
-      height: 150.0,
-    );
-    return Container(
-      child: image,
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:fit_trainer_updated/utils/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'add_subscriber_diet_page.dart';
 import 'evaluation_page.dart';
-import 'subscriber_page.dart';
+import '../widgets/faceIcon.dart';
 
 class DietPage extends StatefulWidget {
   final String subscriberName;

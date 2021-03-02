@@ -14,11 +14,11 @@ class MyApp extends StatelessWidget {
          appBarTheme: AppBarTheme(color: Color.fromRGBO(255, 0, 0, 1)),
          scaffoldBackgroundColor: Color.fromRGBO(255, 227, 227, 1),
          buttonColor: Color.fromRGBO(242, 36, 36, 1),
-      //   textTheme: TextTheme(
-      //       headline6: TextStyle(color: Colors.blue),
-      //       subtitle2: TextStyle(color: Colors.blueAccent)),
-      //   hintColor: Colors.white,
-      //   canvasColor: Colors.white,
+        textTheme: TextTheme(
+            headline6: TextStyle(color: Colors.black,),
+            subtitle2: TextStyle(color: Colors.black)),
+        hintColor: Colors.white,
+        canvasColor: Colors.white,
        ),
       home: LoginScreen(),
     );

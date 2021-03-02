@@ -2,7 +2,7 @@ import 'package:fit_trainer_updated/models/exercise.dart';
 import 'package:fit_trainer_updated/screens/add_subscriber_exercise_page.dart';
 import 'package:fit_trainer_updated/utils/database_helper.dart';
 import 'package:flutter/material.dart';
-import 'subscriber_page.dart';
+import '../widgets/faceIcon.dart';
 
 class Exercises extends StatefulWidget {
   final int subscriberId;

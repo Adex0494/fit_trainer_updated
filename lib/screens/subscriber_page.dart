@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'diet_page.dart';
 import 'exercises_page.dart';
 import 'evaluation_page.dart';
+import '../widgets/faceIcon.dart';
 
 class SubscriberPage extends StatefulWidget {
   final Subscriber subscriber;
@@ -261,17 +262,4 @@ class SubscriberPageState extends State<SubscriberPage> {
   }
 }
 
-class FaceIcon extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    AssetImage assetImage = AssetImage('images/faceIcon.png');
-    Image image = Image(
-      image: assetImage,
-      width: 75.0,
-      height: 75.0,
-    );
-    return Container(
-      child: image,
-    );
-  }
-}
+
