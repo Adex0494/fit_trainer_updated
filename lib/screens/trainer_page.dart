@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'add_subscriber_page.dart';
 import 'package:fit_trainer_updated/utils/database_helper.dart';
 import '../widgets/faceIcon.dart';
+import '../widgets/main_drawer.dart';
 
 class TrainerPage extends StatefulWidget {
   final int trainerId;
@@ -35,30 +36,32 @@ class TrainerPageState extends State<TrainerPage> {
   Widget build(BuildContext context) {
     AppBar appBar = AppBar(
       title: Text('Página principal'),
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back),
-        onPressed: () {
-          //When the user presses the back button in AppBAr...
-          moveToLastScreen();
-        },
-      ),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.settings),
-          onPressed: () {
-            navigateToSettings();
-          },
-        )
-      ],
+      // leading: IconButton(
+      //   icon: Icon(Icons.arrow_back),
+      //   onPressed: () {
+      //     //When the user presses the back button in AppBAr...
+      //     moveToLastScreen();
+      //   },
+      // ),
+      // actions: <Widget>[
+      //   IconButton(
+      //     icon: Icon(Icons.settings),
+      //     onPressed: () {
+      //       navigateToSettings();
+      //     },
+      //   )
+      // ],
     );
     return WillPopScope(
-        onWillPop: () {
-          moveToLastScreen();
-        },
-        child: Scaffold(
-          appBar: appBar,
-          body: scaffoldBody(appBar.preferredSize.height),
-        ));
+      onWillPop: () {
+        moveToLastScreen();
+      },
+      child: Scaffold(
+        appBar: appBar,
+        drawer: MainDrawer(),
+        body: scaffoldBody(appBar.preferredSize.height),
+      ),
+    );
   }
 
   Widget subscriberListView() {
@@ -106,105 +109,103 @@ class TrainerPageState extends State<TrainerPage> {
         MediaQuery.of(context).padding.top;
     TextStyle titleStyle = Theme.of(context).textTheme.headline6;
     TextStyle subtitleStyle = Theme.of(context).textTheme.subtitle2;
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Container(
-        //alignment: Alignment.center,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Container(
-                  height: (availableHeight - 40) * 0.3,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(child: FaceIcon()),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                                padding: EdgeInsets.all(3.0),
-                                child: Text(
-                                  trainerName(),
-                                  style: titleStyle,
-                                  textAlign: TextAlign.center,
-                                )),
-                            Padding(
-                                padding: EdgeInsets.all(3.0),
-                                child: Text(
-                                  'Cantidad de suscriptores: ' +
-                                      subscriberQuantity(),
-                                  style: subtitleStyle,
-                                  textAlign: TextAlign.center,
-                                )),
-                          ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Container(
+          //alignment: Alignment.center,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Container(
+                    height: (availableHeight - 40) * 0.3,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(child: FaceIcon()),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                  padding: EdgeInsets.all(3.0),
+                                  child: Text(
+                                    trainerName(),
+                                    style: titleStyle,
+                                    textAlign: TextAlign.center,
+                                  )),
+                              Padding(
+                                  padding: EdgeInsets.all(3.0),
+                                  child: Text(
+                                    'Cantidad de suscriptores: ' +
+                                        subscriberQuantity(),
+                                    style: subtitleStyle,
+                                    textAlign: TextAlign.center,
+                                  )),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  color: Color.fromRGBO(217, 98, 98, 0.1),
-                ),
-                height: (availableHeight - 40) * 0.7,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            //height: (availableHeight - 40) * 0.65,
-                            //width: MediaQuery.of(context).size.width -30,
-                            child: subscriberListView(),
-                          ),
-                          RaisedButton(
-                            onPressed: () {},
-                            child: Center(
-                              child: Container(
-                                child: Text(
-                                  'Añadir suscriptor',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ),
-                            elevation: 3.0,
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: SingleChildScrollView(
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    color: Color.fromRGBO(217, 98, 98, 0.1),
+                  ),
+                  height: (availableHeight - 40) * 0.7,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Expanded(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
-                              'Suscriptor',
-                              style: titleStyle,
-                              textAlign: TextAlign.center,
+                            Container(
+                              height: 30,
+                              child: TextField(
+                                cursorColor: Color.fromRGBO(242, 36, 36, 1),
+                                decoration: InputDecoration(
+                                    icon: Icon(
+                                      Icons.search,
+                                      color: Colors.black,
+                                    ),
+                                    //fillColor: Color.fromRGBO(242, 36, 36, 1),
+                                    labelText: 'Buscar suscriptor',
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.never,
+                                    labelStyle: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Color.fromRGBO(217, 98, 98, 1),
+                                          width: 2),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color:
+                                              Color.fromRGBO(217, 98, 98, 1)),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    )),
+                              ),
                             ),
-                            FaceIcon(),
-                            Text(
-                              'SuscriptorSuscriptorSuscriptorSuscriptorSuscriptorSuscriptorSuscriptorSuscriptor',
-                              style: subtitleStyle,
-                              textAlign: TextAlign.center,
+                            Expanded(
+                              //height: (availableHeight - 40) * 0.65,
+                              //width: MediaQuery.of(context).size.width -30,
+                              child: subscriberListView(),
                             ),
                             RaisedButton(
                               onPressed: () {},
                               child: Center(
                                 child: Container(
                                   child: Text(
-                                    'ver',
+                                    'Añadir suscriptor',
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
@@ -217,11 +218,46 @@ class TrainerPageState extends State<TrainerPage> {
                           ],
                         ),
                       ),
-                    )
-                  ],
-                ),
-              )
-            ]),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'Suscriptor',
+                                style: titleStyle,
+                                textAlign: TextAlign.center,
+                              ),
+                              FaceIcon(),
+                              Text(
+                                'SuscriptorSuscriptorSuscriptorSuscriptorSuscriptorSuscriptorSuscriptorSuscriptor',
+                                style: subtitleStyle,
+                                textAlign: TextAlign.center,
+                              ),
+                              RaisedButton(
+                                onPressed: () {},
+                                child: Center(
+                                  child: Container(
+                                    child: Text(
+                                      'ver',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                elevation: 3.0,
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ]),
+        ),
       ),
     );
   }
