@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import '../widgets/textFormFieldWithValidation.dart';
 
 class AddSubscriberPage extends StatefulWidget {
   final Subscriber subscriber;
@@ -37,7 +38,7 @@ class AddSubscriberPageState extends State<AddSubscriberPage> {
   List<String> contactTypeList = ['C'];
   List<String> contactTextList = ['Número de Celular'];
   int contactListCount = 1;
-  String gender='M';
+  String gender = 'M';
   List<TextEditingController> contactControllerList =
       List<TextEditingController>();
   List<Widget> contactListWidgets = List<Widget>();
@@ -73,13 +74,11 @@ class AddSubscriberPageState extends State<AddSubscriberPage> {
                 },
               ),
             ),
-            backgroundColor: Colors.white,
             body: scaffoldBody()));
   }
 
   Widget scaffoldBody() {
     //TextStyle titleStyle = Theme.of(context).textTheme.title;
-    TextStyle subtitleStyle = Theme.of(context).textTheme.subtitle;
     return Container(
       alignment: Alignment.center,
       child: Form(
@@ -92,25 +91,15 @@ class AddSubscriberPageState extends State<AddSubscriberPage> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                      padding: EdgeInsets.all(3.0),
-                      child: TextFormField(
-                        style: subtitleStyle,
-                        controller: nameController,
-                        validator: (String value) {
-                          if (value.isEmpty) {
-                            return 'Introduzca el Nombre del Suscriptor';
-                          }
-                        },
-                        decoration: InputDecoration(
-                            labelText: 'Nombre',
-                            labelStyle: subtitleStyle,
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(5.0))),
-                        onChanged: (value) {
-                          //When Name Text has changed...
-                        },
-                      )),
+                    padding: EdgeInsets.all(3.0),
+                    child: TextFormFieldWithValidation(
+                      bottomPadding: 0,
+                      controller: nameController,
+                      isTextObscure: false,
+                      theLabelText: 'Nombre',
+                      validationText: 'Introduzca el Nombre del Suscriptor',
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.all(3.0),
                     child: genderWidget(),
@@ -118,50 +107,29 @@ class AddSubscriberPageState extends State<AddSubscriberPage> {
                   basicTimeField(),
                   contactListview(),
                   Padding(
-                      padding: EdgeInsets.all(3.0),
-                      child: TextFormField(
-                        style: subtitleStyle,
-                        controller: addressController,
-                        validator: (String value) {
-                          if (value.isEmpty) {
-                            return 'Introduzca la Dirección del Suscriptor';
-                          }
-                        },
-                        decoration: InputDecoration(
-                            labelText: 'Dirección',
-                            labelStyle: subtitleStyle,
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(5.0))),
-                        onChanged: (value) {
-                          //When Name Text has changed...
-                        },
-                      )),
+                    padding: EdgeInsets.all(3.0),
+                    child: TextFormFieldWithValidation(
+                      bottomPadding: 0,
+                      controller: addressController,
+                      isTextObscure: false,
+                      theLabelText: 'Dirección',
+                      validationText: 'Introduzca la Dirección del Suscriptor',
+                    ),
+                  ),
                   Padding(
-                      padding: EdgeInsets.all(3.0),
-                      child: TextFormField(
-                        style: subtitleStyle,
-                        controller: objectiveController,
-                        validator: (String value) {
-                          if (value.isEmpty) {
-                            return 'Introduzca el Objetivo del Suscriptor';
-                          }
-                        },
-                        decoration: InputDecoration(
-                            labelText: 'Objetivo',
-                            labelStyle: subtitleStyle,
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(5.0))),
-                        onChanged: (value) {
-                          //When Name Text has changed...
-                        },
-                      )),
+                    padding: EdgeInsets.all(3.0),
+                    child: TextFormFieldWithValidation(
+                      bottomPadding: 0,
+                      controller: objectiveController,
+                      isTextObscure: false,
+                      theLabelText: 'Objetivo',
+                      validationText: 'Introduzca el Objetivo del Suscriptor',
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.all(3.0),
                     child: RaisedButton(
                       elevation: 3.0,
-                      color: Theme.of(context).primaryColor,
                       child: Text(
                         'Registrar',
                         style: TextStyle(color: Colors.white),
@@ -237,7 +205,7 @@ class AddSubscriberPageState extends State<AddSubscriberPage> {
     } else {
       this.subscriber.name = nameController.text;
       this.subscriber.birthdate = birthDateController.text;
-      this.subscriber.gender=gender;
+      this.subscriber.gender = gender;
       this.subscriber.address = addressController.text;
       this.subscriber.objective = objectiveController.text;
       result = await databaseHelper.updateSubscriber(this.subscriber);
@@ -398,31 +366,13 @@ class AddSubscriberPageState extends State<AddSubscriberPage> {
               Expanded(
                   child: Padding(
                       padding: EdgeInsets.all(3.0),
-                      child: TextFormField(
-                        style: subtitleStyle,
+                      child: TextFormFieldWithValidation(
+                        bottomPadding: 0,
                         controller: contactControllerList[contactListPosition],
-                        validator: (String value) {
-                          // if (contactTypeList[contactListPosition] != 'E') {
-                          //   Pattern pattern = r'/^(?:[+0]9)?[0-9]{10}$/';
-                          //   RegExp regex = new RegExp(pattern);
-                          //   if (!regex.hasMatch(value)) {
-                          //     return 'Introduzca un Número válido';
-                          //   }
-                          // }
-                          if (value.isEmpty) {
-                            return 'Introduzca el ' +
-                                contactTextList[contactListPosition];
-                          }
-                        },
-                        decoration: InputDecoration(
-                            labelText: contactTextList[contactListPosition],
-                            labelStyle: subtitleStyle,
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(5.0))),
-                        onChanged: (value) {
-                          //When Name Text has changed...
-                        },
+                        isTextObscure: false,
+                        theLabelText: contactTextList[contactListPosition],
+                        validationText: 'Introduzca el ' +
+                            contactTextList[contactListPosition],
                       ))),
               Padding(
                   padding: EdgeInsets.all(3.0),
@@ -528,11 +478,20 @@ class AddSubscriberPageState extends State<AddSubscriberPage> {
           },
           style: subtitleStyle,
           decoration: InputDecoration(
+              //fillColor: Color.fromRGBO(242, 36, 36, 1),
               labelText: 'Fecha de Nacimiento',
-              labelStyle: subtitleStyle,
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Theme.of(context).primaryColor),
-                  borderRadius: BorderRadius.circular(5.0))),
+              labelStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.redAccent, width: 2),
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.redAccent),
+                borderRadius: BorderRadius.circular(5.0),
+              )),
           format: format,
           onShowPicker: (context, currentValue) async {
             final DateTime picked = await showDatePicker(
@@ -585,5 +544,4 @@ class AddSubscriberPageState extends State<AddSubscriberPage> {
       this.contactListCount = contactListCount;
     });
   }
-
 }

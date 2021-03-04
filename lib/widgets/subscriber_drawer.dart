@@ -1,7 +1,11 @@
+import 'package:fit_trainer_updated/models/subscriber.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_trainer_updated/screens/settings_page.dart';
-
-class MainDrawer extends StatelessWidget {
+import '../screens/diet_page.dart';
+import '../screens/exercises_page.dart';
+import '../screens/evaluation_page.dart';
+import '../screens/question_area.dart';
+class SubscriberDrawer extends StatelessWidget {
   Widget buildListTile(String text, IconData icon, Function tabHandler) {
     return ListTile(
       leading: Icon(
@@ -33,7 +37,7 @@ class MainDrawer extends StatelessWidget {
           color: Color.fromRGBO(255, 0, 0, 1),
           child: Align(
             alignment: Alignment.bottomCenter,
-                      child: Text('Configuración',
+                      child: Text('Acciones',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -43,12 +47,12 @@ class MainDrawer extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        buildListTile('Cuestionario del suscriptor', Icons.question_answer, () {Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return SettingsPage();
-    }));}),
-        Divider(),
-        buildListTile('Cerrar Sesión', Icons.exit_to_app, () {})
+        buildListTile('Cuestionario', Icons.question_answer, () {}),
+        buildListTile('Evaluación', Icons.assessment, () {}),
+        buildListTile('Dieta', Icons.restaurant, () {}),
+        buildListTile('Ejercicios', Icons.fitness_center, () {}),
+
       ],
     ));
   }
-}
+} 

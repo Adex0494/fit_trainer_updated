@@ -200,20 +200,23 @@ class TrainerPageState extends State<TrainerPage> {
                               //width: MediaQuery.of(context).size.width -30,
                               child: subscriberListView(),
                             ),
-                            RaisedButton(
-                              onPressed: () {},
-                              child: Center(
-                                child: Container(
-                                  child: Text(
-                                    'Añadir suscriptor',
-                                    style: TextStyle(
-                                      color: Colors.white,
+                            Container(
+                              width: 150,
+                              child: RaisedButton(
+                                onPressed: () {navigateToAddSubscriber(true);},
+                                child: Center(
+                                  child: Container(
+                                    child: Text(
+                                      'Añadir suscriptor',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                      textAlign: TextAlign.center,
                                     ),
-                                    textAlign: TextAlign.center,
                                   ),
                                 ),
+                                elevation: 3.0,
                               ),
-                              elevation: 3.0,
                             )
                           ],
                         ),
@@ -234,20 +237,23 @@ class TrainerPageState extends State<TrainerPage> {
                                 style: subtitleStyle,
                                 textAlign: TextAlign.center,
                               ),
-                              RaisedButton(
-                                onPressed: () {},
-                                child: Center(
-                                  child: Container(
-                                    child: Text(
-                                      'ver',
-                                      style: TextStyle(
-                                        color: Colors.white,
+                              Container(
+                                width: 150,
+                                child: RaisedButton(
+                                  onPressed: () {},
+                                  child: Center(
+                                    child: Container(
+                                      child: Text(
+                                        'ver',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      textAlign: TextAlign.center,
                                     ),
                                   ),
+                                  elevation: 3.0,
                                 ),
-                                elevation: 3.0,
                               )
                             ],
                           ),

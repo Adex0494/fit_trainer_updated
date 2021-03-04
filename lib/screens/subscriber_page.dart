@@ -7,6 +7,8 @@ import 'diet_page.dart';
 import 'exercises_page.dart';
 import 'evaluation_page.dart';
 import '../widgets/faceIcon.dart';
+import '../widgets/subscriber_drawer.dart';
+
 
 class SubscriberPage extends StatefulWidget {
   final Subscriber subscriber;
@@ -37,6 +39,7 @@ class SubscriberPageState extends State<SubscriberPage> {
           moveToLastScreen();
         },
         child: Scaffold(
+          endDrawer: SubscriberDrawer(),
           appBar: AppBar(
             title: Text('Datos del Suscriptor'),
             leading: IconButton(
@@ -47,7 +50,7 @@ class SubscriberPageState extends State<SubscriberPage> {
               },
             ),
           ),
-          backgroundColor: Colors.white,
+          //backgroundColor: Colors.white,
           body: scaffoldBody(),
         ));
   }
@@ -66,6 +69,7 @@ class SubscriberPageState extends State<SubscriberPage> {
                 Padding(
                   padding: EdgeInsets.all(5.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         subscriber.name,
@@ -75,7 +79,13 @@ class SubscriberPageState extends State<SubscriberPage> {
                     ],
                   ),
                 ),
-                Padding(
+              ],
+            ),
+            Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                                  Padding(
                     padding: EdgeInsets.all(3.0),
                     child: Container(
                         width: contactWidth,
@@ -95,73 +105,7 @@ class SubscriberPageState extends State<SubscriberPage> {
                         width: contactWidth,
                         child: Text('Visión: ' + subscriber.objective,
                             style: subtitleStyle))),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                        padding: EdgeInsets.all(3.0),
-                        child: RaisedButton(
-                          elevation: 3.0,
-                          color: Theme.of(context).primaryColor,
-                          child: Text(
-                            'Dieta',
-                            style: TextStyle(color: Colors.white),
-                            //textScaleFactor: 1.5,
-                          ),
-                          onPressed: () {
-                            //When the Dieta button is pressed...
-                            navigateToDietaPage();
-                          },
-                        )),
-                    Padding(
-                        padding: EdgeInsets.all(3.0),
-                        child: RaisedButton(
-                          elevation: 3.0,
-                          color: Theme.of(context).primaryColor,
-                          child: Text(
-                            'Ejercicios',
-                            style: TextStyle(color: Colors.white),
-                            //textScaleFactor: 1.5,
-                          ),
-                          onPressed: () {
-                            //When the Ejercicios button is pressed...
-                            navigateToExercices();
-                          },
-                        )),
-                    Padding(
-                        padding: EdgeInsets.all(3.0),
-                        child: RaisedButton(
-                          elevation: 3.0,
-                          color: Theme.of(context).primaryColor,
-                          child: Text(
-                            'Evaluación',
-                            style: TextStyle(color: Colors.white),
-                            //textScaleFactor: 1.5,
-                          ),
-                          onPressed: () {
-                            //When the Evaluacion button is pressed...
-                            navigateToEvaluation();
-                          },
-                        )),
-                  ],
-                ),
-                Padding(
-                        padding: EdgeInsets.all(3.0),
-                        child: RaisedButton(
-                          elevation: 3.0,
-                          color: Theme.of(context).primaryColor,
-                          child: Text(
-                            'Cuestionario',
-                            style: TextStyle(color: Colors.white),
-                            //textScaleFactor: 1.5,
-                          ),
-                          onPressed: () {
-                            //When the Evaluacion button is pressed...
-                            navigateToQuestionArea();
-                          },
-                        ))
-              ],
-            )
+                ],)
           ],
         ));
   }
