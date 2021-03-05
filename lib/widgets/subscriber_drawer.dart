@@ -5,6 +5,9 @@ import '../screens/diet_page.dart';
 import '../screens/exercises_page.dart';
 import '../screens/evaluation_page.dart';
 import '../screens/question_area.dart';
+import '../Providers/subscriber_provider.dart';
+import 'package:provider/provider.dart';
+
 class SubscriberDrawer extends StatelessWidget {
   Widget buildListTile(String text, IconData icon, Function tabHandler) {
     return ListTile(
@@ -37,7 +40,7 @@ class SubscriberDrawer extends StatelessWidget {
           color: Color.fromRGBO(255, 0, 0, 1),
           child: Align(
             alignment: Alignment.bottomCenter,
-                      child: Text('Acciones',
+            child: Text('Acciones',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -48,11 +51,16 @@ class SubscriberDrawer extends StatelessWidget {
           height: 20,
         ),
         buildListTile('Cuestionario', Icons.question_answer, () {}),
-        buildListTile('Evaluación', Icons.assessment, () {}),
+        buildListTile('Evaluación', Icons.assessment, () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return Evaluation(
+                Provider.of<SubscriberProvider>(context, listen: false)
+                    .subscriber);
+          }));
+        }),
         buildListTile('Dieta', Icons.restaurant, () {}),
         buildListTile('Ejercicios', Icons.fitness_center, () {}),
-
       ],
     ));
   }
-} 
+}

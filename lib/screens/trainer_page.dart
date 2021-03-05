@@ -7,6 +7,8 @@ import 'add_subscriber_page.dart';
 import 'package:fit_trainer_updated/utils/database_helper.dart';
 import '../widgets/faceIcon.dart';
 import '../widgets/main_drawer.dart';
+import '../Providers/subscriber_provider.dart';
+import 'package:provider/provider.dart';
 
 class TrainerPage extends StatefulWidget {
   final int trainerId;
@@ -307,6 +309,7 @@ class TrainerPageState extends State<TrainerPage> {
   }
 
   void navigateToSubscriberPage(Subscriber subscriber) {
+    Provider.of<SubscriberProvider>(context, listen: false).setSubscriber(subscriber);
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return SubscriberPage(subscriber);
     }));
