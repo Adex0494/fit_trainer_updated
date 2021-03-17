@@ -29,6 +29,8 @@ class SubscriberDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Subscriber subscriber =
+        Provider.of<SubscriberProvider>(context, listen: false).subscriber;
     return Drawer(
         child: Column(
       children: [
@@ -53,12 +55,14 @@ class SubscriberDrawer extends StatelessWidget {
         buildListTile('Cuestionario', Icons.question_answer, () {}),
         buildListTile('Evaluación', Icons.assessment, () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return Evaluation(
-                Provider.of<SubscriberProvider>(context, listen: false)
-                    .subscriber);
+            return Evaluation(subscriber);
           }));
         }),
-        buildListTile('Dieta', Icons.restaurant, () {}),
+        buildListTile('Dieta', Icons.restaurant, () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return DietPage(subscriber.name, subscriber.id);
+          }));
+        }),
         buildListTile('Ejercicios', Icons.fitness_center, () {}),
       ],
     ));
